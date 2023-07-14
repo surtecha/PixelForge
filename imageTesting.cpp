@@ -18,9 +18,9 @@ int main()  {
     
         for(int x=0; x<250; x++)    {
             for(int y=0; y<250; y++)    {
-                image << min((x+y), 255) << " "     // R
-                      << min((x+y), 255) << " "     // G
-                      << min((x+y), 255) << endl;   // B
+                image << (x*y) % 255 << " "     // R
+                      << (x*y) % 255 << " "     // G
+                      << (x*y) % 255 << endl;   // B
             }
         }
     }
