@@ -1,3 +1,4 @@
+#include <limits>
 #include "read_image.hpp"
 
 std::vector<std::vector<Pixel>> read_image::read_PPM(const std::string& filename) {
@@ -17,7 +18,8 @@ std::vector<std::vector<Pixel>> read_image::read_PPM(const std::string& filename
     }
 
     // Skip newline character
-    file.ignore(256, '\n');
+    file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 
     std::vector<std::vector<Pixel>> pixels(height, std::vector<Pixel>(width));
     for(int row = 0; row < height; ++row) {
