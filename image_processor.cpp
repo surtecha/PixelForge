@@ -7,7 +7,7 @@ int main()  {
     std::vector<std::vector<Pixel>> pixels = read_image::read_PPM(filename);
 
     if(pixels.empty()) {
-        std::cerr << "Error reading image file." < std::endl;
+        std::cerr << "Error reading image file." << std::endl;
         return 1;
     }
 
