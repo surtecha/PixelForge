@@ -1,9 +1,10 @@
 #include <iostream>
+#include <vector>
 #include "read_image.hpp"
 //#include "kernel_convolution.hpp"
 
 int main()  {
-    std::string filename = "image.ppm";
+    std::string filename = "blackbuck.ascii.ppm";
     std::vector<std::vector<Pixel>> pixels = read_image::read_PPM(filename);
 
     if(pixels.empty()) {
