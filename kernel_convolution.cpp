@@ -1,7 +1,3 @@
-#include "kernel_convolution.h"
+#include "kernel_convolution.hpp"
 
-kernel_convolution::kernel_convolution(int w, int h)
-{
-    width = w;
-    height = h;
-}
+
