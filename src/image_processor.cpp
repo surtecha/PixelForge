@@ -14,6 +14,7 @@ int main()  {
 
 
     // Accessing individual pixels' RGB values
+    // needs change of approach
     for(size_t i=0; i<pixels.size(); i++)   {
         for(size_t j=0; j<pixels[i].size(); j++)    {
             
