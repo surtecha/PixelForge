@@ -15,5 +15,5 @@ struct Image {
 
     bool read(const char* filename);    // Read a file
     bool write(const char* filename);   // Write a file
-
+    
 };
