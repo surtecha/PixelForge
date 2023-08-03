@@ -1,8 +1,11 @@
-#include <cstdint>
-#include <stdlib.h>
+#include <cstdio>
+#include <stdint.h>
 
+enum ImageType  {
+    PNG, JPG, BMP, TGA
+};
 struct Image {
-    uint8_t* data = nullptr;
+    uint8_t* data = NULL;
     size_t size = 0; 
     int w;
     int h;
@@ -15,5 +18,6 @@ struct Image {
 
     bool read(const char* filename);    // Read a file
     bool write(const char* filename);   // Write a file
-    
+
+    ImageType getFileType(const char* filename);
 };
