@@ -1,23 +1,24 @@
+#include <cstdint>
 #include <cstdio>
-#include <stdint.h>
 
-enum ImageType  {
+enum ImageType{
     PNG, JPG, BMP, TGA
 };
-struct Image {
+
+struct Image{
     uint8_t* data = NULL;
-    size_t size = 0; 
-    int w;
-    int h;
+    size_t size = 0;
+    int w, h;
     int channels;
 
-    Image(const char* filename);    // Accepts a filename
-    Image(int w, int h, int channels);  // Creating a blank black image
-    Image(const Image& img);  // Copy images
-    ~Image();   // Destructor
+    Image(const char* filename);
+    Image(int w, int h, int channels);
 
-    bool read(const char* filename);    // Read a file
-    bool write(const char* filename);   // Write a file
+    Image(const Image& img);
+    ~Image();
+
+    bool read(const char* filename);
+    bool write(const char* filename);  
 
     ImageType getFileType(const char* filename);
 };
