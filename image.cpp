@@ -1,5 +1,6 @@
 #include "image.h"
 
+#include <cstring>
 #include <fstream>
 #include <iostream>
 
@@ -94,6 +95,58 @@ void Image::Read(const char *path) {
 
 // Export function - currently a stub with no implementation
 void Image::Export(const char *path) const {
-  // Implement the export functionality here
-  std::cout << "Export function is not yet implemented.\n";
+  std::ofstream file(path, std::ios::out | std::ios::binary);
+  if (!file) {
+    std::cerr << "Could not open file for writing.\n";
+    return;
+  }
+
+  // BMP files have a 54-byte header
+  unsigned char header[54] = {0};
+  int fileSize = 54 + 3 * m_width * m_height; // 3 bytes per pixel
+  int dataOffset = 54;
+  int headerSize = 40;
+  int planes = 1;
+  int bitsPerPixel = 24;
+  int compression = 0;
+  int imageSize = 3 * m_width * m_height;
+  int ppm = 2835; // 72 DPI in pixels per meter
+
+  // Fill the header
+  header[0] = 'B';
+  header[1] = 'M';
+  memcpy(header + 2, &fileSize, 4);
+  memcpy(header + 10, &dataOffset, 4);
+  memcpy(header + 14, &headerSize, 4);
+  memcpy(header + 18, &m_width, 4);
+  memcpy(header + 22, &m_height, 4);
+  memcpy(header + 26, &planes, 2);
+  memcpy(header + 28, &bitsPerPixel, 2);
+  memcpy(header + 30, &compression, 4);
+  memcpy(header + 34, &imageSize, 4);
+  memcpy(header + 38, &ppm, 4);
+  memcpy(header + 42, &ppm, 4);
+
+  file.write(reinterpret_cast<char *>(header), 54);
+
+  // Write pixel data
+  for (int y = 0; y < m_height; y++) { // BMP stores pixels bottom-to-top
+    for (int x = 0; x < m_width; x++) {
+      Color color = m_colors[y * m_width + x];
+      unsigned char pixel[3] = {static_cast<unsigned char>(color.b * 255),
+                                static_cast<unsigned char>(color.g * 255),
+                                static_cast<unsigned char>(color.r * 255)};
+      file.write(reinterpret_cast<char *>(pixel), 3);
+    }
+
+    // Row padding
+    unsigned char padding[3] = {0, 0, 0};
+    int paddingSize = (4 - (m_width * 3) % 4) % 4;
+    if (paddingSize) {
+      file.write(reinterpret_cast<char *>(padding), paddingSize);
+    }
+  }
+
+  file.close();
+  std::cout << "Image exported successfully to " << path << std::endl;
 }

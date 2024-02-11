@@ -1,15 +1,22 @@
+#include "ImageProcessing.h"
 #include "image.h"
 #include <iostream>
 
 int main() {
-  const char *imagePath = "test_image.bmp";
+  const char *inputImagePath = "test_image.bmp";
+  const char *outputImagePath = "blurred_image.bmp";
 
   Image image;
-  image.Read(imagePath);
+  image.Read(inputImagePath);
 
-  Color color = image.GetColor(0, 0); // Get color of the top-left pixel
-  std::cout << "Color of the top-left pixel: R=" << color.r << ", G=" << color.g
-            << ", B=" << color.b << std::endl;
+  // Apply Gaussian Blur to the image
+  int kernelSize = 5; // Example kernel size
+  float sigma = 3.0f; // Example standard deviation for Gaussian kernel
+  ImageProcessing::GaussianBlur(image, kernelSize, sigma);
+
+  // Export the blurred image
+  image.Export(outputImagePath);
+  std::cout << "Blurred image exported to " << outputImagePath << std::endl;
 
   return 0;
 }
