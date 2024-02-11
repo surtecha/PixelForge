@@ -12,6 +12,7 @@ struct Color {
 
 class Image {
 public:
+  Image();
   Image(int width, int height);
   ~Image();
 
@@ -21,10 +22,14 @@ public:
   // Sets color at the pixel position
   void SetColor(const Color &color, int x, int y);
 
+  void Read(const char *path);
+
+  void SetDimensions(int width, int height);
+
   void Export(const char *path) const;
 
 private:
-  int m_width;
-  int m_height;
+  int m_width{0};
+  int m_height{0};
   std::vector<Color> m_colors;
 };
