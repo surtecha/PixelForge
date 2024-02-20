@@ -4,4 +4,4 @@
 
 <h1 align="center">PixelForge</h1>
 
-### This project is under active development. Documentation will be available soon.
+<h3 align="center">This project is under active development. Documentation will be available soon.</h3>
